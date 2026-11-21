@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { VendorMenuTable } from '@/features/menu/components/vendor-menu-table';
+import { SubscriptionPrompt } from '@/features/subscriptions/components/subscription-prompt';
 
 export default function VendorMenuPage() {
     return (
@@ -19,7 +20,7 @@ export default function VendorMenuPage() {
                     + Add Menu Item
                 </Link>
             </div>
-
+            <SubscriptionPrompt />
             <VendorMenuTable />
         </main>
     );

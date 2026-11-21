@@ -3,13 +3,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {
+    ArrowDown,
     ArrowRight,
+    ArrowUpRight,
     Bike,
     Clock3,
     Flame,
     Leaf,
     ShieldCheck,
-    Star,
+    Sparkles,
 } from 'lucide-react';
 
 import { useMenu } from '@/features/menu/hooks/use-menu';
@@ -17,34 +19,58 @@ import { useMenu } from '@/features/menu/hooks/use-menu';
 const categories = [
     {
         name: 'Classic Pizza',
+        number: '01',
+        description: 'Timeless Italian favorites',
         icon: '🍕',
-        description: 'Timeless pizza favorites',
     },
-    { name: 'Cheese Pizza', icon: '🧀', description: 'For cheese lovers' },
-    { name: 'Chicken Pizza', icon: '🍗', description: 'Loaded with chicken' },
-    { name: 'Vegetarian', icon: '🥬', description: 'Fresh and flavorful' },
+    {
+        name: 'Cheese Pizza',
+        number: '02',
+        description: 'Made for cheese lovers',
+        icon: '🧀',
+    },
+    {
+        name: 'Chicken Pizza',
+        number: '03',
+        description: 'Rich, savory and satisfying',
+        icon: '🍗',
+    },
+    {
+        name: 'Vegetarian',
+        number: '04',
+        description: 'Fresh from the garden',
+        icon: '🥬',
+    },
 ];
 
 const benefits = [
     {
         icon: Leaf,
-        title: 'Fresh Ingredients',
-        description: 'We use carefully selected ingredients for every pizza.',
+        number: '01',
+        title: 'Ingredients that matter',
+        description:
+            'Thoughtfully selected ingredients come together in every delicious bite.',
+    },
+    {
+        icon: Flame,
+        number: '02',
+        title: 'Made fresh, every time',
+        description:
+            'Every pizza is prepared with care when you place your order.',
     },
     {
         icon: Bike,
-        title: 'Fast Delivery',
-        description: 'Hot and delicious pizza delivered to your doorstep.',
+        number: '03',
+        title: 'At your doorstep',
+        description:
+            'We make it easy to enjoy your favorite pizza wherever you are.',
     },
     {
         icon: ShieldCheck,
-        title: 'Quality You Trust',
-        description: 'Every order is prepared with care and attention.',
-    },
-    {
-        icon: Clock3,
-        title: 'Made to Order',
-        description: 'Freshly prepared when you place your order.',
+        number: '04',
+        title: 'Quality you can trust',
+        description:
+            'A simple promise: delicious food and a better ordering experience.',
     },
 ];
 
@@ -61,152 +87,219 @@ export default function HomePage() {
         limit: 6,
     });
 
-    const menuItems = data?.items ?? [];
-    const featuredItems = menuItems.slice(0, 6);
-    const heroImage = menuItems[0]?.images?.[0];
+    const featuredItems = data?.items?.slice(0, 6) ?? [];
+    const heroImage = featuredItems[0]?.images?.[0];
 
     return (
-        <div className="overflow-hidden bg-background">
-            {/* Hero */}
-            <section className="relative isolate overflow-hidden bg-[#171713] text-white">
-                <div className="absolute -right-40 -top-40 size-[500px] rounded-full bg-[#b84b32]/20 blur-[100px]" />
-                <div className="absolute -bottom-48 -left-32 size-[450px] rounded-full bg-[#68734b]/20 blur-[100px]" />
+        <main className="overflow-hidden bg-background">
+            {/* HERO */}
+            <section className="relative isolate min-h-[680px] overflow-hidden bg-[#191b18] text-[#f7f2e9] lg:min-h-[760px]">
+                {/* Background atmosphere */}
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_75%_45%,rgba(185,78,53,0.18),transparent_42%)]" />
+                <div className="pointer-events-none absolute -left-40 top-1/3 size-[420px] rounded-full bg-[#737b55]/10 blur-[120px]" />
+                <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(#fff_0.7px,transparent_0.7px)] [background-size:6px_6px]" />
 
-                <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 md:min-h-[620px] md:grid-cols-2 md:py-24">
-                    <div className="max-w-xl">
-                        <span className="inline-flex items-center gap-2 rounded-full border border-[#e6b76b]/30 bg-[#e6b76b]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#e6b76b]">
-                            <Flame className="size-4" />
-                            Fresh from our oven
-                        </span>
+                <div className="relative mx-auto grid min-h-[680px] max-w-[1440px] items-center gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.05fr_0.95fr] md:py-20 lg:min-h-[760px] lg:px-16">
+                    {/* Hero copy */}
+                    <div className="relative z-10 max-w-[660px]">
+                        <div className="animate-fade-up inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.28em] text-[#d9a66c] sm:text-xs">
+                            <span className="h-px w-9 bg-[#d9a66c]" />A little
+                            taste of Italy
+                        </div>
 
-                        <h1 className="mt-7 text-5xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
-                            A little slice
+                        <h1 className="animate-fade-up mt-7 font-serif text-[clamp(3.7rem,8vw,7.5rem)] leading-[0.91] tracking-[-0.065em] [animation-delay:120ms]">
+                            Crafted
                             <br />
-                            of{' '}
-                            <span className="text-[#d88b55]">happiness.</span>
+                            with{' '}
+                            <span className="font-serif italic text-[#d58b5b]">
+                                passion.
+                            </span>
+                            <br />
+                            Served with
+                            <br />
+                            <span className="font-serif italic text-[#d58b5b]">
+                                love.
+                            </span>
                         </h1>
 
-                        <p className="mt-6 max-w-md text-base leading-8 text-white/65 sm:text-lg">
-                            Discover handcrafted pizzas made with fresh
-                            ingredients, rich flavors, and a whole lot of love.
+                        <p className="animate-fade-up mt-8 max-w-[420px] text-sm leading-8 text-white/55 [animation-delay:240ms] sm:text-base">
+                            Discover the joy of beautifully made pizza.
+                            Thoughtful ingredients, rich flavors and a little
+                            something special in every slice.
                         </p>
 
-                        <div className="mt-9 flex flex-wrap gap-4">
+                        <div className="animate-fade-up mt-9 flex flex-wrap items-center gap-4 [animation-delay:360ms]">
                             <Link
                                 href="/menu"
-                                className="inline-flex h-12 items-center gap-3 rounded-full bg-[#b84b32] px-7 text-sm font-semibold text-white transition-all hover:-translate-y-1 hover:bg-[#a94029]"
+                                className="group inline-flex h-14 items-center gap-5 rounded-full bg-[#b94e35] px-7 text-xs font-bold uppercase tracking-[0.12em] text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#ce6247] hover:shadow-[0_14px_35px_rgba(185,78,53,0.25)]"
                             >
-                                Explore Our Menu
-                                <ArrowRight className="size-4" />
+                                Explore the menu
+                                <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                             </Link>
 
                             <Link
-                                href="#why-us"
-                                className="inline-flex h-12 items-center rounded-full border border-white/20 px-7 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                                href="#our-story"
+                                className="inline-flex h-14 items-center gap-3 rounded-full px-4 text-xs font-semibold uppercase tracking-[0.12em] text-white/65 transition-colors hover:text-white"
                             >
-                                Why PizzaHub?
+                                Discover our story
+                                <ArrowDown className="size-4" />
                             </Link>
                         </div>
 
-                        <div className="mt-12 flex flex-wrap gap-8 border-t border-white/10 pt-7">
+                        {/* Editorial details */}
+                        <div className="animate-fade-up mt-14 grid max-w-[430px] grid-cols-3 border-t border-white/10 pt-6 [animation-delay:480ms]">
                             <div>
-                                <p className="text-2xl font-bold text-[#e6b76b]">
+                                <p className="font-serif text-2xl italic text-[#d9a66c] sm:text-3xl">
                                     Fresh
                                 </p>
-                                <p className="mt-1 text-xs text-white/50">
-                                    Quality ingredients
+                                <p className="mt-2 text-[9px] uppercase tracking-[0.16em] text-white/40 sm:text-[10px]">
+                                    Ingredients
                                 </p>
                             </div>
-                            <div>
-                                <p className="text-2xl font-bold text-[#e6b76b]">
+                            <div className="border-l border-white/10 pl-5">
+                                <p className="font-serif text-2xl italic text-[#d9a66c] sm:text-3xl">
                                     Made
                                 </p>
-                                <p className="mt-1 text-xs text-white/50">
+                                <p className="mt-2 text-[9px] uppercase tracking-[0.16em] text-white/40 sm:text-[10px]">
                                     With passion
                                 </p>
                             </div>
-                            <div>
-                                <p className="text-2xl font-bold text-[#e6b76b]">
-                                    Hot
+                            <div className="border-l border-white/10 pl-5">
+                                <p className="font-serif text-2xl italic text-[#d9a66c] sm:text-3xl">
+                                    Yours
                                 </p>
-                                <p className="mt-1 text-xs text-white/50">
-                                    At your doorstep
+                                <p className="mt-2 text-[9px] uppercase tracking-[0.16em] text-white/40 sm:text-[10px]">
+                                    To enjoy
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="relative mx-auto w-full max-w-lg">
-                        <div className="absolute inset-5 rounded-full bg-[#c36a3e]/20 blur-3xl" />
+                    {/* Hero visual */}
+                    <div className="relative mx-auto w-full max-w-[570px] animate-fade-in [animation-delay:250ms]">
+                        <div className="absolute inset-[8%] rounded-full bg-[#b94e35]/20 blur-[80px]" />
 
-                        <div className="relative aspect-square overflow-hidden rounded-full border border-white/10 bg-[#28251f] p-3 shadow-2xl">
-                            {heroImage ? (
-                                <Image
-                                    src={heroImage}
-                                    alt="Freshly prepared PizzaHub pizza"
-                                    fill
-                                    priority
-                                    unoptimized
-                                    sizes="(max-width: 768px) 90vw, 45vw"
-                                    className="rounded-full object-cover"
-                                />
-                            ) : (
-                                <div className="flex h-full items-center justify-center text-9xl">
-                                    🍕
-                                </div>
-                            )}
-                        </div>
+                        <div className="relative mx-auto aspect-square w-[88%]">
+                            <div className="absolute inset-0 animate-float rounded-full border border-[#d9a66c]/20" />
+                            <div className="absolute inset-[5%] rounded-full border border-dashed border-[#d9a66c]/20" />
 
-                        <div className="absolute -bottom-3 left-0 rounded-2xl border border-white/10 bg-[#292720] px-5 py-4 shadow-xl sm:-left-8">
-                            <div className="flex items-center gap-3">
-                                <span className="flex size-10 items-center justify-center rounded-full bg-[#b84b32]/20 text-[#e6b76b]">
-                                    <Star className="size-5 fill-current" />
+                            <div className="absolute inset-[10%] overflow-hidden rounded-full border-[7px] border-[#d9a66c]/15 bg-[#292b24] shadow-[0_30px_100px_rgba(0,0,0,0.5)]">
+                                {heroImage ? (
+                                    <Image
+                                        src='./hero.png'
+                                        alt="PizzaHub featured pizza"
+                                        fill
+                                        priority
+                                        unoptimized
+                                        sizes="(max-width: 768px) 80vw, 45vw"
+                                        className="object-cover transition-transform duration-[1200ms] hover:scale-110"
+                                    />
+                                ) : (
+                                    <div className="flex h-full items-center justify-center text-[clamp(6rem,16vw,12rem)]">
+                                        🍕
+                                    </div>
+                                )}
+
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-white/5" />
+                            </div>
+
+                            {/* Floating label */}
+                            <div className="absolute -right-2 top-[16%] flex size-24 flex-col items-center justify-center rounded-full border border-[#d9a66c]/40 bg-[#252721] text-center shadow-2xl sm:size-28">
+                                <Sparkles className="mb-1 size-4 text-[#d9a66c]" />
+                                <span className="font-serif text-sm italic text-[#f7f2e9] sm:text-base">
+                                    Made
                                 </span>
-                                <div>
-                                    <p className="text-sm font-semibold">
-                                        Made with love
-                                    </p>
-                                    <p className="text-xs text-white/50">
-                                        Every single slice
-                                    </p>
+                                <span className="text-[8px] uppercase tracking-[0.2em] text-[#d9a66c]">
+                                    with love
+                                </span>
+                            </div>
+
+                            <div className="absolute -bottom-1 left-0 rounded-full border border-white/10 bg-[#252721] px-5 py-3 shadow-xl sm:left-[-7%] sm:px-6 sm:py-4">
+                                <div className="flex items-center gap-3">
+                                    <span className="flex size-9 items-center justify-center rounded-full bg-[#b94e35]/20 text-[#d9a66c]">
+                                        <Clock3 className="size-4" />
+                                    </span>
+                                    <div>
+                                        <p className="text-xs font-semibold text-white">
+                                            Freshly prepared
+                                        </p>
+                                        <p className="mt-1 text-[10px] text-white/45">
+                                            Just the way you love it
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <p className="mt-8 text-center text-[9px] uppercase tracking-[0.35em] text-white/30">
+                            GOOD FOOD · GOOD MOOD · PIZZAHUB
+                        </p>
                     </div>
+                </div>
+
+                {/* Bottom scroll cue */}
+                <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 items-center gap-3 text-[9px] uppercase tracking-[0.25em] text-white/35 lg:flex">
+                    <span className="h-px w-8 bg-white/20" />
+                    Scroll to discover
+                    <span className="h-px w-8 bg-white/20" />
                 </div>
             </section>
 
-            {/* Featured Menu */}
-            <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
-                <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            {/* MARQUEE */}
+            <section className="overflow-hidden border-y border-[#d9a66c]/20 bg-[#b94e35] py-5 text-white">
+                <div className="animate-marquee flex w-max items-center gap-8 whitespace-nowrap">
+                    {Array.from({ length: 2 }).map((_, index) => (
+                        <div key={index} className="flex items-center gap-8">
+                            {[
+                                'HANDCRAFTED PIZZA',
+                                'FRESH INGREDIENTS',
+                                'MADE WITH PASSION',
+                                'A SLICE OF HAPPINESS',
+                            ].map((label) => (
+                                <span
+                                    key={`${index}-${label}`}
+                                    className="flex items-center gap-8 font-serif text-lg italic tracking-wide sm:text-2xl"
+                                >
+                                    {label}
+                                    <span className="text-[#edc18d]">✳</span>
+                                </span>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* FEATURED MENU */}
+            <section className="section-padding mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-16">
+                <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
                     <div>
-                        <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#b84b32]">
-                            Made for pizza lovers
+                        <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-brand-tomato">
+                            A few of our favorites
                         </p>
-                        <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-                            Our Featured Pizzas
+                        <h2 className="mt-4 font-serif text-4xl leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                            The art of a
+                            <br />
+                            <span className="italic text-brand-tomato">
+                                perfect slice.
+                            </span>
                         </h2>
-                        <p className="mt-3 max-w-lg text-sm leading-7 text-muted-foreground">
-                            Explore some of the delicious creations prepared by
-                            our talented vendors.
-                        </p>
                     </div>
 
                     <Link
                         href="/menu"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-[#b84b32] transition-all hover:gap-3"
+                        className="group inline-flex items-center gap-3 pb-2 text-xs font-bold uppercase tracking-[0.16em] text-foreground transition-colors hover:text-brand-tomato"
                     >
-                        View all pizzas
-                        <ArrowRight className="size-4" />
+                        Explore all pizzas
+                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                     </Link>
                 </div>
 
                 {isPending ? (
-                    <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {Array.from({ length: 6 }).map((_, index) => (
                             <div
                                 key={index}
-                                className="overflow-hidden rounded-2xl border bg-card"
+                                className="overflow-hidden rounded-2xl border border-border bg-card"
                             >
                                 <div className="aspect-[4/3] animate-pulse bg-muted" />
                                 <div className="space-y-3 p-5">
@@ -218,7 +311,7 @@ export default function HomePage() {
                         ))}
                     </div>
                 ) : isError ? (
-                    <div className="mt-10 rounded-2xl border border-destructive/20 bg-destructive/5 px-6 py-12 text-center">
+                    <div className="mt-12 rounded-2xl border border-destructive/20 bg-destructive/5 px-6 py-12 text-center">
                         <p className="font-semibold">
                             Unable to load featured pizzas.
                         </p>
@@ -227,38 +320,41 @@ export default function HomePage() {
                         </p>
                         <Link
                             href="/menu"
-                            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#b84b32]"
+                            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-tomato"
                         >
                             Browse menu <ArrowRight className="size-4" />
                         </Link>
                     </div>
                 ) : featuredItems.length === 0 ? (
-                    <div className="mt-10 rounded-2xl border border-dashed px-6 py-16 text-center">
+                    <div className="mt-12 rounded-2xl border border-dashed border-border px-6 py-16 text-center">
                         <span className="text-5xl">🍕</span>
-                        <h3 className="mt-4 text-lg font-semibold">
-                            Fresh pizzas are coming soon!
+                        <h3 className="mt-4 font-serif text-2xl">
+                            Something delicious is coming.
                         </h3>
                         <p className="mt-2 text-sm text-muted-foreground">
-                            Our vendors are preparing something delicious.
+                            Our vendors are preparing something special.
                         </p>
                     </div>
                 ) : (
-                    <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {featuredItems.map((item) => (
+                    <div className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+                        {featuredItems.map((item, index) => (
                             <Link
                                 href={`/menu/${item._id}`}
                                 key={item._id}
-                                className="group overflow-hidden rounded-2xl border bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                                className="group animate-fade-up"
+                                style={{
+                                    animationDelay: `${index * 100}ms`,
+                                }}
                             >
-                                <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                                    {item.images[0] ? (
+                                <div className="relative aspect-4/3 overflow-hidden rounded-[1.4rem] bg-muted">
+                                    {item.images?.[0] ? (
                                         <Image
                                             src={item.images[0]}
                                             alt={item.name}
                                             fill
                                             unoptimized
                                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                     ) : (
                                         <div className="flex h-full items-center justify-center text-7xl">
@@ -266,34 +362,37 @@ export default function HomePage() {
                                         </div>
                                     )}
 
-                                    <span className="absolute left-4 top-4 rounded-full bg-[#171713]/85 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
+
+                                    <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-black/35 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md">
                                         {item.category}
+                                    </span>
+
+                                    <span className="absolute bottom-5 right-5 flex size-11 translate-y-3 items-center justify-center rounded-full bg-[#b94e35] text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                                        <ArrowUpRight className="size-5" />
                                     </span>
                                 </div>
 
-                                <div className="p-5">
-                                    <div className="flex items-start justify-between gap-3">
-                                        <h3 className="text-lg font-bold transition-colors group-hover:text-[#b84b32]">
+                                <div className="flex items-start justify-between gap-4 px-1 pt-5">
+                                    <div className="min-w-0">
+                                        <h3 className="font-serif text-2xl transition-colors group-hover:text-brand-tomato">
                                             {item.name}
                                         </h3>
-                                        <span className="shrink-0 text-base font-bold text-[#b84b32]">
-                                            {formatPrice(item.price)}
-                                        </span>
+                                        <p className="mt-2 line-clamp-2 text-xs leading-6 text-muted-foreground">
+                                            {item.description}
+                                        </p>
                                     </div>
 
-                                    <p className="mt-3 line-clamp-2 min-h-10 text-sm leading-6 text-muted-foreground">
-                                        {item.description}
-                                    </p>
+                                    <span className="shrink-0 pt-1 text-sm font-bold text-brand-tomato">
+                                        {formatPrice(item.price)}
+                                    </span>
+                                </div>
 
-                                    <div className="mt-5 flex items-center justify-between border-t pt-4">
-                                        <span className="text-xs text-muted-foreground">
-                                            By {item.vendorName}
-                                        </span>
-                                        <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#b84b32]">
-                                            View details
-                                            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                                        </span>
-                                    </div>
+                                <div className="mx-1 mt-4 flex items-center justify-between border-t border-border/80 pt-3 text-[10px] text-muted-foreground">
+                                    <span>By {item.vendorName}</span>
+                                    <span className="uppercase tracking-[0.15em]">
+                                        Discover
+                                    </span>
                                 </div>
                             </Link>
                         ))}
@@ -301,110 +400,202 @@ export default function HomePage() {
                 )}
             </section>
 
-            {/* Categories */}
-            <section className="bg-[#f4f0e8] py-20 text-[#24231e] dark:bg-[#201f1a] dark:text-white lg:py-24">
-                <div className="mx-auto max-w-7xl px-5 sm:px-8">
-                    <div className="text-center">
-                        <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#b84b32]">
-                            Find your favorite
-                        </p>
-                        <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                            Explore by Category
-                        </h2>
-                        <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-[#77756d] dark:text-white/55">
-                            Whatever you are craving, there is a perfect slice
-                            waiting for you.
-                        </p>
-                    </div>
-
-                    <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
-                        {categories.map((category) => (
-                            <Link
-                                key={category.name}
-                                href={`/menu?category=${encodeURIComponent(category.name)}`}
-                                className="group rounded-2xl border border-black/5 bg-white p-6 text-center transition-all hover:-translate-y-2 hover:shadow-lg dark:border-white/10 dark:bg-[#292720]"
-                            >
-                                <span className="text-5xl transition-transform group-hover:scale-110">
-                                    {category.icon}
-                                </span>
-                                <h3 className="mt-5 font-bold">
-                                    {category.name}
-                                </h3>
-                                <p className="mt-2 text-xs text-[#77756d] dark:text-white/50">
-                                    {category.description}
-                                </p>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Why PizzaHub */}
+            {/* STORY */}
             <section
-                id="why-us"
-                className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24"
+                id="our-story"
+                className="relative overflow-hidden bg-[#22251f] text-[#f7f2e9]"
             >
-                <div className="mx-auto max-w-2xl text-center">
-                    <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#b84b32]">
-                        The PizzaHub difference
-                    </p>
-                    <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                        More than just pizza.
-                    </h2>
-                    <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                        Great food brings people together. We make every order a
-                        little more special.
-                    </p>
-                </div>
+                <div className="absolute -right-40 top-0 size-[500px] rounded-full bg-[#737b55]/10 blur-[100px]" />
 
-                <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-                    {benefits.map((benefit) => {
-                        const Icon = benefit.icon;
+                <div className="relative mx-auto grid max-w-[1440px] items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-2 lg:gap-24 lg:px-16 lg:py-28">
+                    <div className="relative">
+                        <div className="absolute -left-5 -top-5 font-serif text-8xl text-[#d9a66c]/20">
+                            “
+                        </div>
 
-                        return (
-                            <div key={benefit.title} className="text-center">
-                                <div className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-[#b84b32]/10 text-[#b84b32] transition-transform hover:-translate-y-1">
-                                    <Icon className="size-7" />
-                                </div>
-                                <h3 className="mt-5 font-bold">
-                                    {benefit.title}
-                                </h3>
-                                <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                                    {benefit.description}
-                                </p>
-                            </div>
-                        );
-                    })}
-                </div>
-            </section>
+                        <p className="relative text-[10px] font-bold uppercase tracking-[0.28em] text-[#d9a66c]">
+                            More than just pizza
+                        </p>
 
-            {/* CTA */}
-            <section className="px-5 pb-20 sm:px-8 lg:pb-24">
-                <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#24231e] px-6 py-16 text-center text-white sm:px-12 lg:py-20">
-                    <div className="absolute -right-20 -top-32 size-80 rounded-full bg-[#b84b32]/20 blur-3xl" />
-                    <div className="absolute -bottom-40 -left-20 size-80 rounded-full bg-[#758052]/20 blur-3xl" />
-
-                    <div className="relative mx-auto max-w-2xl">
-                        <span className="text-5xl">🍕</span>
-                        <h2 className="mt-6 text-3xl font-bold leading-tight sm:text-5xl">
-                            Your next favorite pizza
-                            <span className="text-[#d88b55]"> is waiting.</span>
+                        <h2 className="mt-6 font-serif text-4xl leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+                            Good food has
+                            <br />
+                            a way of bringing
+                            <br />
+                            <span className="italic text-[#d58b5b]">
+                                us together.
+                            </span>
                         </h2>
-                        <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-white/60">
-                            Explore our menu, discover new flavors, and make
-                            your next meal unforgettable.
+
+                        <p className="mt-7 max-w-lg text-sm leading-8 text-white/55">
+                            We believe every great meal deserves a little
+                            attention. From the ingredients to the final slice,
+                            PizzaHub is all about making your pizza moments feel
+                            special.
                         </p>
 
                         <Link
                             href="/menu"
-                            className="mt-8 inline-flex h-12 items-center gap-3 rounded-full bg-[#b84b32] px-8 text-sm font-semibold text-white transition-all hover:-translate-y-1 hover:bg-[#a94029]"
+                            className="group mt-8 inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-[#d9a66c]"
                         >
-                            Order Your Pizza
-                            <ArrowRight className="size-4" />
+                            Find your favorite
+                            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                        </Link>
+                    </div>
+
+                    <div className="relative mx-auto w-full max-w-[520px]">
+                        <div className="absolute -inset-4 rotate-3 rounded-[2rem] border border-[#d9a66c]/20" />
+                        <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-[1.7rem] bg-[radial-gradient(ellipse_at_center,rgba(185,78,53,0.3),transparent_65%),#30332b]">
+                            
+                                <Image
+                                    src='./feature.png'
+                                    alt="A freshly prepared PizzaHub pizza"
+                                    fill
+                                    unoptimized
+                                    sizes="(max-width: 768px) 90vw, 40vw"
+                                    className="object-cover opacity-80"
+                                />
+                            
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#191b18]/75 via-transparent to-black/10" />
+                            <div className="absolute bottom-8 left-8">
+                                <p className="font-serif text-3xl italic text-white sm:text-4xl">
+                                    Made for sharing.
+                                </p>
+                                <p className="mt-2 text-[9px] uppercase tracking-[0.25em] text-white/60">
+                                    The PizzaHub feeling
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* CATEGORIES */}
+            <section className="section-padding mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-16">
+                <div className="text-center">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-brand-tomato">
+                        Find your kind of delicious
+                    </p>
+                    <h2 className="mt-4 font-serif text-4xl sm:text-5xl">
+                        A slice for every mood.
+                    </h2>
+                    <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-muted-foreground">
+                        From timeless classics to fresh favorites, discover the
+                        pizza that feels just right.
+                    </p>
+                </div>
+
+                <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+                    {categories.map((category) => (
+                        <Link
+                            key={category.name}
+                            href={`/menu?category=${encodeURIComponent(category.name)}`}
+                            className="group relative overflow-hidden rounded-[1.3rem] border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-2 hover:border-brand-tomato/40 hover:shadow-xl sm:p-7"
+                        >
+                            <span className="text-[10px] font-bold tracking-[0.2em] text-brand-tomato">
+                                {category.number}
+                            </span>
+                            <div className="my-8 text-5xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-8deg] sm:text-6xl">
+                                {category.icon}
+                            </div>
+                            <h3 className="font-serif text-xl sm:text-2xl">
+                                {category.name}
+                            </h3>
+                            <p className="mt-2 text-[10px] leading-5 text-muted-foreground sm:text-xs">
+                                {category.description}
+                            </p>
+                            <ArrowUpRight className="absolute right-5 top-5 size-4 text-muted-foreground transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-brand-tomato" />
+                        </Link>
+                    ))}
+                </div>
+            </section>
+
+            {/* WHY PIZZAHUB */}
+            <section className="bg-[#eee9df] py-20 text-[#252824] dark:bg-[#22251f] dark:text-[#f7f2e9] lg:py-28">
+                <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-16">
+                    <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+                        <div>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-brand-tomato">
+                                The PizzaHub difference
+                            </p>
+                            <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
+                                The little things
+                                <br />
+                                make a <span className="italic">big</span>
+                                <br />
+                                difference.
+                            </h2>
+                        </div>
+
+                        <p className="max-w-md text-sm leading-8 text-[#77766e] dark:text-white/50 lg:justify-self-end">
+                            Great pizza is more than what goes on top. It is the
+                            care, the quality and the experience behind every
+                            order.
+                        </p>
+                    </div>
+
+                    <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                        {benefits.map((benefit) => {
+                            const Icon = benefit.icon;
+
+                            return (
+                                <div
+                                    key={benefit.number}
+                                    className="group border-t border-[#252824]/15 pt-6 dark:border-white/15"
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-serif text-sm italic text-brand-tomato">
+                                            {benefit.number}
+                                        </span>
+                                        <Icon className="size-5 text-brand-tomato transition-transform duration-300 group-hover:-translate-y-1" />
+                                    </div>
+
+                                    <h3 className="mt-8 font-serif text-2xl">
+                                        {benefit.title}
+                                    </h3>
+                                    <p className="mt-3 text-xs leading-7 text-[#77766e] dark:text-white/50">
+                                        {benefit.description}
+                                    </p>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            {/* FINAL CTA */}
+            <section className="bg-background px-5 py-20 sm:px-8 lg:px-16 lg:py-28">
+                <div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-[2rem] bg-[#191b18] px-6 py-20 text-center text-[#f7f2e9] sm:px-12 lg:py-28">
+                    <div className="pointer-events-none absolute -right-20 -top-40 size-[450px] rounded-full bg-[#b94e35]/20 blur-[100px]" />
+                    <div className="pointer-events-none absolute -bottom-40 -left-20 size-[400px] rounded-full bg-[#737b55]/20 blur-[100px]" />
+
+                    <div className="relative mx-auto max-w-3xl">
+                        <span className="text-5xl">🍕</span>
+                        <p className="mt-7 text-[10px] font-bold uppercase tracking-[0.3em] text-[#d9a66c]">
+                            Your table is waiting
+                        </p>
+                        <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-6xl lg:text-7xl">
+                            Make today a
+                            <br />
+                            <span className="italic text-[#d58b5b]">
+                                pizza kind of day.
+                            </span>
+                        </h2>
+                        <p className="mx-auto mt-6 max-w-md text-sm leading-7 text-white/50">
+                            Find your next favorite, explore the menu and make
+                            room for one more slice.
+                        </p>
+
+                        <Link
+                            href="/menu"
+                            className="group mt-9 inline-flex h-14 items-center gap-4 rounded-full bg-[#b94e35] px-8 text-xs font-bold uppercase tracking-[0.14em] text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#ce6247] hover:shadow-[0_14px_35px_rgba(185,78,53,0.25)]"
+                        >
+                            Explore our menu
+                            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                         </Link>
                     </div>
                 </div>
             </section>
-        </div>
+        </main>
     );
 }
