@@ -22,7 +22,6 @@ import { signOut, useSession } from '@/lib/auth-client';
 const navigation = [
     { label: 'Home', href: '/' },
     { label: 'Our Menu', href: '/menu' },
-    { label: 'Our Story', href: '/#our-story' },
 ];
 
 export function Navbar() {
