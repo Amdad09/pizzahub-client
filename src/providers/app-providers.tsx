@@ -13,11 +13,11 @@ interface AppProvidersProps {
 
 export function AppProviders({ children }: AppProvidersProps) {
     return (
-        <ThemeProvider>
+        <ThemeProvider >
             <QueryProvider>
                 <MotionProvider>
                     {children}
-                    <Toaster position="top-right" richColors theme="system" />
+                    <Toaster position="top-center" richColors theme="system" />
                 </MotionProvider>
             </QueryProvider>
         </ThemeProvider>
