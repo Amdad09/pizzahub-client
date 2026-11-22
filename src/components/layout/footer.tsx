@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import {
     FaFacebookF,
+    FaGithub,
     FaInstagram,
     FaLink,
     FaYoutube,
@@ -55,7 +56,16 @@ export function Footer() {
 
                         <div className="mt-7 flex gap-3">
                             <a
-                                href="https://www.facebook.com/"
+                                href="https://github.com/Amdad09"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Facebook"
+                                className="flex size-10 items-center justify-center rounded-full border border-white/10 transition-colors hover:border-[#b84b32] hover:bg-[#b84b32]"
+                            >
+                                <FaGithub className="size-4" />
+                            </a>
+                            <a
+                                href="https://www.facebook.com/Amdadul009"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Facebook"
@@ -65,7 +75,7 @@ export function Footer() {
                             </a>
 
                             <a
-                                href="https://www.instagram.com/"
+                                href="https://www.instagram.com/Amdad09_"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Instagram"
@@ -74,7 +84,7 @@ export function Footer() {
                                 <FaInstagram className="size-4" />
                             </a>
                             <a
-                                href="https://www.instagram.com/"
+                                href="https://portfolio1-lime-nine-11.vercel.app/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Instagram"
@@ -83,7 +93,7 @@ export function Footer() {
                                 <FaLink className="size-4" />
                             </a>
                             <a
-                                href="https://www.instagram.com/"
+                                href="https://www.youtube.com/@amdadul_09"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Instagram"
