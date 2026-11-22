@@ -11,8 +11,20 @@ import {
     useRejectOrder,
     useVendorOrder,
 } from '@/features/orders/hooks/use-orders';
-
+import { useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 export default function VendorOrderDetailsPage() {
+    const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false);
+    const [reason, setReason] = useState('');
     const params = useParams<{ id: string }>();
 
     const { data: order, isLoading, isError } = useVendorOrder(params.id);
@@ -40,10 +52,6 @@ export default function VendorOrderDetailsPage() {
     const handleReject = async () => {
         if (!order || order.status !== 'pending') return;
 
-        const reason = window.prompt('Enter a rejection reason (optional):');
-
-        if (reason === null) return;
-
         try {
             await rejectOrder.mutateAsync({
                 id: order._id,
@@ -51,6 +59,8 @@ export default function VendorOrderDetailsPage() {
             });
 
             toast.success('Order rejected successfully.');
+            setIsRejectDialogOpen(false);
+            setReason('');
         } catch (error) {
             toast.error(
                 error instanceof Error
@@ -161,16 +171,57 @@ export default function VendorOrderDetailsPage() {
 
             {order.status === 'pending' && (
                 <div className="flex flex-wrap justify-end gap-3">
-                    <button
-                        type="button"
-                        onClick={handleReject}
-                        disabled={isPending}
-                        className="rounded-lg border border-destructive px-5 py-2.5 text-sm font-semibold text-destructive transition-colors hover:bg-destructive/10 disabled:opacity-50"
+                    <Dialog
+                        open={isRejectDialogOpen}
+                        onOpenChange={setIsRejectDialogOpen}
                     >
-                        {rejectOrder.isPending
-                            ? 'Rejecting...'
-                            : 'Reject Order'}
-                    </button>
+                        <Button
+                            variant="destructive"
+                            onClick={() => setIsRejectDialogOpen(true)}
+                        >
+                            Reject Order
+                        </Button>
+
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Reject Order</DialogTitle>
+                                <DialogDescription>
+                                    Are you sure you want to reject this order?
+                                    You can optionally provide a reason for the
+                                    rejection.
+                                </DialogDescription>
+                            </DialogHeader>
+
+                            <Textarea
+                                placeholder="Enter rejection reason (optional)"
+                                value={reason}
+                                onChange={(event) =>
+                                    setReason(event.target.value)
+                                }
+                                rows={4}
+                            />
+
+                            <DialogFooter>
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setIsRejectDialogOpen(false)}
+                                    disabled={rejectOrder.isPending}
+                                >
+                                    Cancel
+                                </Button>
+
+                                <Button
+                                    variant="destructive"
+                                    onClick={handleReject}
+                                    disabled={rejectOrder.isPending}
+                                >
+                                    {rejectOrder.isPending
+                                        ? 'Rejecting...'
+                                        : 'Confirm Rejection'}
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
 
                     <button
                         type="button"

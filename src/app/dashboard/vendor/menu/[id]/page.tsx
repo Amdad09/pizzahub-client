@@ -24,6 +24,7 @@ import {
 } from '@/features/menu/hooks/use-menu';
 
 import type { MenuStatus } from '@/features/menu/types';
+import { toast } from 'sonner';
 
 const statusConfig: Record<MenuStatus, { label: string; className: string }> = {
     pending: {
@@ -72,19 +73,15 @@ export default function VendorMenuDetailsPage() {
     const handleDelete = async () => {
         if (!item) return;
 
-        const confirmed = window.confirm(
-            `Are you sure you want to delete "${item.name}"? This action cannot be undone.`,
-        );
-
-        if (!confirmed) return;
-
         try {
             await deleteMutation.mutateAsync(item._id);
-            window.alert('Menu item deleted successfully.');
+
+            toast.success('Menu item deleted successfully.');
+
             router.push('/dashboard/vendor/menu');
             router.refresh();
         } catch {
-            window.alert('Failed to delete menu item. Please try again.');
+            toast.error('Failed to delete menu item. Please try again.');
         }
     };
 
