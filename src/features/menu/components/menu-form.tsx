@@ -5,6 +5,7 @@
 import { useEffect, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import type { MenuInput, MenuItem } from '../types';
 import {
@@ -84,7 +85,9 @@ export function MenuForm({ initialData }: MenuFormProps) {
         const uploadErrors: string[] = [];
 
         if (remainingSlots <= 0) {
-            setError('Maximum 4 images are allowed.');
+            const message = 'Maximum 4 images are allowed.';
+            setError(message);
+            toast.error(message);
             event.target.value = '';
             return;
         }
@@ -149,7 +152,14 @@ export function MenuForm({ initialData }: MenuFormProps) {
             }
         }
 
-        setError(uploadErrors.join(' '));
+        if (uploadErrors.length > 0) {
+            const message = uploadErrors.join(' ');
+            setError(message);
+            toast.error(message);
+        } else {
+            toast.success('Image uploaded successfully.');
+        }
+
         event.target.value = '';
     }
 
@@ -167,14 +177,20 @@ export function MenuForm({ initialData }: MenuFormProps) {
         setError('');
 
         if (uploadMutation.isPending) {
-            setError('Please wait until image uploads finish.');
+            const message = 'Please wait until image uploads finish.';
+            setError(message);
+            toast.error(message);
             return;
         }
 
         const parsed = menuFormSchema.safeParse(form);
 
         if (!parsed.success) {
-            setError(parsed.error.issues[0]?.message ?? 'Invalid form data.');
+            const message =
+                parsed.error.issues[0]?.message ?? 'Invalid form data.';
+
+            setError(message);
+            toast.error(message);
             return;
         }
 
@@ -184,16 +200,22 @@ export function MenuForm({ initialData }: MenuFormProps) {
                     id: initialData._id,
                     input: parsed.data,
                 });
+
+                toast.success('Menu item updated successfully.');
             } else {
                 await createMutation.mutateAsync(parsed.data);
+
+                toast.success('Menu item created successfully.');
             }
 
             router.push('/dashboard/vendor/menu');
             router.refresh();
         } catch (err) {
-            setError(
-                err instanceof Error ? err.message : 'Something went wrong.',
-            );
+            const message =
+                err instanceof Error ? err.message : 'Something went wrong.';
+
+            setError(message);
+            toast.error(message);
         }
     }
 
