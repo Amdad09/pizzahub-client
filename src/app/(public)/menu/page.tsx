@@ -16,9 +16,13 @@ export default function MenuPage() {
 
     return (
         <main className="min-h-screen bg-background">
-            <section className="relative overflow-hidden bg-[#211B17] px-6 py-20 text-center text-white">
-                <div className="mx-auto max-w-3xl">
-                    <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-[#D7A56D]">
+            <section className="relative isolate overflow-hidden bg-card px-6 py-20 text-center text-card-foreground">
+                {/* Decorative Background */}
+                <div className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-orange-500/10 blur-3xl" />
+
+                <div className="relative mx-auto max-w-3xl">
+                    <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
                         Fresh from our oven
                     </p>
 
@@ -26,10 +30,12 @@ export default function MenuPage() {
                         Explore Our Menu
                     </h1>
 
-                    <p className="mx-auto mt-5 max-w-xl text-white/70">
+                    <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
                         Discover handcrafted pizzas made with fresh ingredients
                         and authentic flavors.
                     </p>
+
+                    <div className="mx-auto mt-7 h-1 w-20 rounded-full bg-primary" />
                 </div>
             </section>
 
