@@ -20,12 +20,6 @@ export default function CustomerOrderDetailsPage() {
     const handleCancel = async () => {
         if (!order || order.status !== 'pending') return;
 
-        const confirmed = window.confirm(
-            'Are you sure you want to cancel this order?',
-        );
-
-        if (!confirmed) return;
-
         try {
             await cancelOrder.mutateAsync({ id: order._id });
             toast.success('Order cancelled successfully.');
