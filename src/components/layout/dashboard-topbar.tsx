@@ -48,7 +48,7 @@ export function DashboardTopbar({ name, email, role }: DashboardTopbarProps) {
         .join('');
 
     return (
-        <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-border/70 bg-background/90 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
+        <header className="sticky top-0 z-70 flex h-20 items-center justify-between border-b border-border/70 bg-background/90 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
             {/* Left section */}
             <div className="flex min-w-0 items-center gap-3">
                 <MobileNav role={role} />
